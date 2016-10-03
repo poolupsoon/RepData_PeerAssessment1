@@ -8,9 +8,9 @@ Dataset: [Activity monitoring data](https://d396qusza40orc.cloudfront.net/repdat
 
 The variables included in this dataset are:
 
-- steps: Number of steps taking in a 5-minute interval (missing values are coded as NA)
-- date: The date on which the measurement was taken in YYYY-MM-DD format
-- interval: Identifier for the 5-minute interval in which measurement was taken
+- **steps**: Number of steps taking in a 5-minute interval (missing values are coded as NA)
+- **date**: The date on which the measurement was taken in YYYY-MM-DD format
+- **interval**: Identifier for the 5-minute interval in which measurement was taken
 
 The dataset is stored in a comma-separated-value (CSV) file and there are a total of 17,568 observations in this dataset.
 
@@ -185,7 +185,8 @@ new_activity$interval.day <- paste(new_activity$interval, new_activity$day, sep 
 new_average_steps <- with(new_activity, tapply(steps, interval.day, mean, na.rm = TRUE))
 cname <- sapply(names(new_average_steps), strsplit, split = ".", fixed = TRUE)
 cname <- sapply(cname, unlist)
-df <- data.frame(interval = as.numeric(cname[1,]), day = cname[2,], steps = new_average_steps, row.names = NULL, stringsAsFactors = FALSE)
+df <- data.frame(interval = as.numeric(cname[1,]), day = cname[2,], steps = new_average_steps,
+                 row.names = NULL, stringsAsFactors = FALSE)
 df <- df[order(df$interval),]
 
 print(ggplot(df, aes(interval, steps, group = day)) +
